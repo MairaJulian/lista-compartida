@@ -1,14 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
+
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { store } from './src/store/store';
+import SignUpScreen from './src/screens/authentication/signUp/SignUpScreen';
 
 export default function App() {
   return (
     <Provider store={store}>
       <View style={styles.container}>
-        <Text>Holaaaa Maiiii</Text>
-        <StatusBar style="auto" />
+        <SignUpScreen/>
       </View>
     </Provider>
   );
