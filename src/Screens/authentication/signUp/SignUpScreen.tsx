@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native'
 import React, { useState } from 'react'
+import { useSignUpMutation } from '../../../services/AuthenticationService'
 
 const SignUpScreen = () => {
 
@@ -7,23 +8,35 @@ const SignUpScreen = () => {
   const [pass, setPass] = useState("")
   const [passConfirm, setPassConfirm] = useState("")
 
+  const [triggerSignUp, result] = useSignUpMutation()
+  console.log(result);
+  
+
   const onHandleChangeEmail = (newValue) => {
     setEmail(newValue)
-    console.log(newValue);
+    // console.log(newValue);
     
   }
 
   const onHandleChangePass = (newValue) => {
     setPass(newValue)
-    console.log(newValue);
+    // console.log(newValue);
   }
 
   const onHandleChangePassConfirm = (newValue) => {
     setPassConfirm(newValue)
-    console.log(newValue);
+    // console.log(newValue);
   }
 
   const handleSubmit = () => {
+    console.log(email, pass, passConfirm);
+    //esto lo saqué de la documentacion de firebase
+    const request = {
+      email,
+      pass,
+      returnSecureToken: true
+    }
+    triggerSignUp(request)
     setEmail("")
     setPass("")
     setPassConfirm("")
