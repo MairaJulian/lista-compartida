@@ -5,7 +5,7 @@ import { authApi } from "../services/AuthenticationService";
 
 export const store = configureStore ({
     reducer: {
-        user: userReducer,
+        userReducer,
         [authApi.reducerPath]: authApi.reducer,
     },
     middleware: (getDefaultMiddleware) => 

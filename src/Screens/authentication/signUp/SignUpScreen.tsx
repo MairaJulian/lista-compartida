@@ -1,8 +1,12 @@
 import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSignUpMutation } from '../../../services/AuthenticationService'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../../../store/user/UserSlice'
 
-const SignUpScreen = () => {
+const SignUpScreen = ({
+  navigation
+}) => {
 
   const [email, setEmail] = useState("")
   const [pass, setPass] = useState("")
@@ -10,6 +14,20 @@ const SignUpScreen = () => {
 
   const [triggerSignUp, result] = useSignUpMutation()
   console.log(result);
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (result.isSuccess) {
+      dispatch(
+        setUser({
+          email: result.data.email,
+          idToken: result.data.idToken
+        })
+      )
+    }
+  }, [result])
+  
   
 
   const onHandleChangeEmail = (newValue) => {
@@ -18,10 +36,10 @@ const SignUpScreen = () => {
     
   }
 
-  const onHandleChangePass = (newValue) => {
-    setPass(newValue)
-    // console.log(newValue);
-  }
+  // const onHandleChangePass = (newValue) => {
+  //   setPass(newValue)
+  //   // console.log(newValue);
+  // }
 
   const onHandleChangePassConfirm = (newValue) => {
     setPassConfirm(newValue)
@@ -32,11 +50,16 @@ const SignUpScreen = () => {
     console.log(email, pass, passConfirm);
     //esto lo saqué de la documentacion de firebase
     const request = {
-      email,
-      pass,
+      email: email,
+      password: pass,
       returnSecureToken: true
     }
     triggerSignUp(request)
+
+    if (result.isSuccess) {
+      navigation.navigate('Login')
+    }
+    
     setEmail("")
     setPass("")
     setPassConfirm("")
@@ -44,8 +67,8 @@ const SignUpScreen = () => {
   }
 
   return (
-    <View>
-      <Text>Register (falta seleccionar idioma)</Text>
+    <View style={styles.container}>
+      {/* <Text>Register (falta seleccionar idioma)</Text> */}
       <TextInput 
         style={styles.input} 
         placeholder='Email'
@@ -59,7 +82,8 @@ const SignUpScreen = () => {
         placeholder='Password'
         secureTextEntry
         value={pass}
-        onChangeText={onHandleChangePass}
+        onChangeText={(text) => setPass(text)}
+        // onChangeText={onHandleChangePass}
       />
       <TextInput 
         style={styles.input} 
@@ -71,6 +95,10 @@ const SignUpScreen = () => {
       <Pressable style={styles.button} onPress={handleSubmit}>
         <Text style={styles.textButton}>Register</Text>
       </Pressable>
+      <Text>You have an account?</Text>
+      <Pressable onPress={()=>navigation.navigate('Login')}>
+        <Text style={styles.login}>Login</Text>
+      </Pressable>
     </View>
   )
 }
@@ -78,20 +106,35 @@ const SignUpScreen = () => {
 export default SignUpScreen
 
 const styles = StyleSheet.create({
+  container: {
+    // backgroundColor: "red",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10
+  },
   input: {
     borderBottomColor: "gray", //traer color del archivo de colores
     borderBottomWidth: 1,
-    marginTop: 15
+    marginTop: 20,
+    width: 250
   },
   button: {
     borderWidth: 1,
     borderColor: "blue", //traer color del archivo de colores
     backgroundColor: "blue", //traer color del archivo de colores
-    marginTop: 15
+    marginTop: 15,
+    width: 80,
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center"
   },
   textButton: {
     color: "white", //traer color del archivo de colores
-    justifyContent: "center",
-    textAlign: "center"
+    
+  },
+  login: {
+    color: "blue"
   }
 })

@@ -1,16 +1,17 @@
 
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
-import { store } from './src/store/store';
-import SignUpScreen from './src/screens/authentication/signUp/SignUpScreen';
+import { store } from './src/store/Store';
+import StackNavigation from './src/navigation/stackNavigation/StackNavigation';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <View style={styles.container}>
-        <SignUpScreen/>
-      </View>
-    </Provider>
+    <SafeAreaProvider>
+      <Provider store={store}>
+        <StackNavigation/>
+      </Provider>
+    </SafeAreaProvider>
   );
 }
 

@@ -6,9 +6,9 @@ export const authApi = createApi({
     baseQuery: fetchBaseQuery({baseUrl: `https://identitytoolkit.googleapis.com/v1`}),
     endpoints: (builder) => ({
         signUp: builder.mutation({
-            query: ({...auth}) => ({
+            query: (auth) => ({
                 url: `/accounts:signUp?key=${apiKey}`,
-                method: "POST",
+                method: `POST`,
                 body: auth
             })
         })
