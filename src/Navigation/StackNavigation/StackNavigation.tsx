@@ -1,18 +1,13 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "../../screens/authentication/login/LoginScreen";
 import SignUpScreen from "../../screens/authentication/signUp/SignUpScreen";
-import HomeScreen from "../../screens/home/HomeScreen";
-import { Header } from "react-native/Libraries/NewAppScreen";
-import { NavigationContainer } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const Stack = createNativeStackNavigator()
 
 const StackNavigation = () => {
     return (
-        <SafeAreaView style={styles.container}>
-            <NavigationContainer>
+        <View style={styles.container}>
                 <Stack.Navigator
                     initialRouteName="Sign Up"
                     // screenOptions={({route, navigation})=>({
@@ -34,8 +29,7 @@ const StackNavigation = () => {
                         component={HomeScreen}
                     /> */}
                 </Stack.Navigator>
-            </NavigationContainer>
-        </SafeAreaView>
+        </View>
     )
 }
 
@@ -43,6 +37,9 @@ export default StackNavigation
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        // flex: 1,
+        // backgroundColor: "red",
+        // width: 100,
+
     }
   })

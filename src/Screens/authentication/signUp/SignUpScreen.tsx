@@ -55,10 +55,6 @@ const SignUpScreen = ({
       returnSecureToken: true
     }
     triggerSignUp(request)
-
-    if (result.isSuccess) {
-      navigation.navigate('Login')
-    }
     
     setEmail("")
     setPass("")
@@ -95,7 +91,7 @@ const SignUpScreen = ({
       <Pressable style={styles.button} onPress={handleSubmit}>
         <Text style={styles.textButton}>Register</Text>
       </Pressable>
-      <Text>You have an account?</Text>
+      <Text style={styles.text}>You have an account?</Text>
       <Pressable onPress={()=>navigation.navigate('Login')}>
         <Text style={styles.login}>Login</Text>
       </Pressable>
@@ -107,7 +103,10 @@ export default SignUpScreen
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: "red",
+    // backgroundColor: "green",
+    // borderColor: "black",
+    // borderWidth: 1,
+    // width: 500,
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
@@ -136,5 +135,8 @@ const styles = StyleSheet.create({
   },
   login: {
     color: "blue"
+  },
+  text: {
+    backgroundColor: "red"
   }
 })

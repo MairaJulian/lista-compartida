@@ -2,14 +2,14 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { store } from './src/store/Store';
-import StackNavigation from './src/navigation/stackNavigation/StackNavigation';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Navigator from './src/navigation/Navigator';
 
 export default function App() {
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider style={styles.container}>
       <Provider store={store}>
-        <StackNavigation/>
+        <Navigator/>
       </Provider>
     </SafeAreaProvider>
   );
